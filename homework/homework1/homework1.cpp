@@ -112,6 +112,9 @@ public:
 	struct Material {
 		glm::vec4 baseColorFactor = glm::vec4(1.0f);
 		uint32_t baseColorTextureIndex;
+		//Elysia
+		uint32_t metallicRoughnessTextureIndex;
+		uint32_t normalTextureIndex;
 	};
 
 	// Contains the texture for a single glTF image
@@ -251,7 +254,6 @@ public:
 			textures[i].imageIndex = input.textures[i].source;
 		}
 	}
-
 	void loadMaterials(tinygltf::Model& input)
 	{
 		materials.resize(input.materials.size());
@@ -266,6 +268,10 @@ public:
 			if (glTFMaterial.values.find("baseColorTexture") != glTFMaterial.values.end()) {
 				materials[i].baseColorTextureIndex = glTFMaterial.values["baseColorTexture"].TextureIndex();
 			}
+			if (glTFMaterial.values.find("metallicRoughnessTexture") != glTFMaterial.values.end()) {
+				materials[i].metallicRoughnessTextureIndex = glTFMaterial.values["metallicRoughnessTexture"].TextureIndex();
+			}
+			materials[i].normalTextureIndex = glTFMaterial.normalTexture.index;
 		}
 	}
 
@@ -1090,7 +1096,7 @@ public:
 		shaderData.values.viewPos = camera.viewPos;
 		memcpy(shaderData.buffer.mapped, &shaderData.values, sizeof(shaderData.values));
 		//Elysia
-		glTFModel.updateMeshUniformBuffers();
+		//glTFModel.updateMeshUniformBuffers();
 	}
 	
 	void prepare()
