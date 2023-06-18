@@ -9,7 +9,7 @@
 #include "vulkanexamplebase.h"
 #include "VulkanglTFModel.h"
 
-#define ENABLE_VALIDATION false
+#define ENABLE_VALIDATION true
 
 class VulkanExample : public VulkanExampleBase
 {
